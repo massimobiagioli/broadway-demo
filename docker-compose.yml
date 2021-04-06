@@ -31,12 +31,6 @@ services:
         volumes:
             - .:/app
 
-    cs-fixer:
-        build:
-            context: ./docker/cs-fixer
-        volumes:
-            - .:/project
-
 networks:
     app:
         driver: bridge

@@ -15,7 +15,7 @@ namespace BroadwayDemo\Basket;
 
 class RemoveProductFromBasket extends BasketCommand
 {
-    private $productId;
+    private string $productId;
 
     public function __construct(BasketId $basketId, string $productId)
     {

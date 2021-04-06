@@ -17,7 +17,7 @@ use Broadway\Serializer\Serializable;
 
 abstract class BasketEvent implements Serializable
 {
-    private $basketId;
+    private BasketId $basketId;
 
     public function __construct(BasketId $basketId)
     {

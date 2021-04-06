@@ -20,18 +20,11 @@ use Doctrine\DBAL\Connection;
 
 class DBALRepositoryFactory implements RepositoryFactory
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
-    /**
-     * @var Serializer
-     */
-    private $serializer;
-    /**
-     * @var
-     */
-    private $tableName;
+    private Connection $connection;
+
+    private Serializer $serializer;
+
+    private string $tableName;
 
     public function __construct(
         Connection $connection,

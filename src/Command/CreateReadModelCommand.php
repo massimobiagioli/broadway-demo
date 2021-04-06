@@ -24,15 +24,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateReadModelCommand extends ContainerAwareCommand
 {
-    /**
-     * @var DBALRepository
-     */
-    private $repository;
+    private DBALRepository $repository;
 
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection, DBALRepository $repository)
     {
@@ -57,7 +51,7 @@ class CreateReadModelCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $schemaManager = $this->connection->getSchemaManager();
 

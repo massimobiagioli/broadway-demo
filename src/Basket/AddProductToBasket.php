@@ -15,8 +15,8 @@ namespace BroadwayDemo\Basket;
 
 class AddProductToBasket extends BasketCommand
 {
-    private $productId;
-    private $productName;
+    private string $productId;
+    private string $productName;
 
     public function __construct(BasketId $basketId, string $productId, string $productName)
     {

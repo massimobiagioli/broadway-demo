@@ -19,7 +19,7 @@ use BroadwayDemo\Basket\BasketCheckedOut;
 
 class PeopleThatBoughtThisProductAlsoBoughtProjector extends Projector
 {
-    private $repository;
+    private Repository $repository;
 
     public function __construct(Repository $repository)
     {

@@ -36,11 +36,11 @@ test:
 test-single:
 	docker-compose run --rm --no-deps php ./vendor/bin/phpunit --testdox --exclude-group=none --colors=always $(test)
 
-cs-fix:
-	docker-compose run --rm --no-deps cs-fixer php-cs-fixer fix
+cs-fixer:
+	docker-compose run --rm --no-deps php ./vendor/bin/php-cs-fixer fix --no-interaction --allow-risky=yes --diff --verbose
 
-cs-check:
-	docker-compose run --rm --no-deps cs-fixer php-cs-fixer fix --dry-run -v
+cs-fixer-ci:
+	docker-compose run --rm --no-deps php ./vendor/bin/php-cs-fixer fix --dry-run --no-interaction --allow-risky=yes --diff --verbose
 
 init-event-store:
 	docker-compose run --rm --no-deps php ./bin/console broadway:event-store:create

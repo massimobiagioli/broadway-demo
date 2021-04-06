@@ -15,7 +15,7 @@ namespace BroadwayDemo\Basket;
 
 class BasketCheckedOut extends BasketEvent
 {
-    private $products;
+    private array $products;
 
     public function __construct(BasketId $basketId, array $products)
     {
@@ -24,7 +24,7 @@ class BasketCheckedOut extends BasketEvent
         $this->products = $products;
     }
 
-    public function getProducts()
+    public function getProducts(): array
     {
         return $this->products;
     }
@@ -42,7 +42,7 @@ class BasketCheckedOut extends BasketEvent
     /**
      * {@inheritdoc}
      */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         return new self(
             new BasketId($data['basketId']),

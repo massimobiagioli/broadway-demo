@@ -17,7 +17,7 @@ use Assert\Assertion as Assert;
 
 final class BasketId
 {
-    private $basketId;
+    private string $basketId;
 
     public function __construct(string $basketId)
     {

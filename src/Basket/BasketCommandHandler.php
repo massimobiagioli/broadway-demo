@@ -17,7 +17,7 @@ use Broadway\CommandHandling\SimpleCommandHandler;
 
 class BasketCommandHandler extends SimpleCommandHandler
 {
-    private $repository;
+    private BasketRepository $repository;
 
     public function __construct(BasketRepository $repository)
     {

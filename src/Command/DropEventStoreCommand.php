@@ -25,10 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DropEventStoreCommand extends ContainerAwareCommand
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
     /**
      * @var EventStore
      */
@@ -63,7 +60,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $schemaManager = $this->connection->getSchemaManager();
         $table = $this->eventStore->configureTable(new Schema());

@@ -23,25 +23,13 @@ use Doctrine\DBAL\Schema\Table;
 
 class DBALRepository implements Repository
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * @var Serializer
-     */
-    private $serializer;
+    private Serializer $serializer;
 
-    /**
-     * @var string
-     */
-    private $tableName;
+    private string $tableName;
 
-    /**
-     * @var string
-     */
-    private $class;
+    private string $class;
 
     public function __construct(
         Connection $connection,

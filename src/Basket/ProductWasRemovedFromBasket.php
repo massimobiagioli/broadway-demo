@@ -15,7 +15,7 @@ namespace BroadwayDemo\Basket;
 
 class ProductWasRemovedFromBasket extends BasketEvent
 {
-    private $productId;
+    private string $productId;
 
     public function __construct(BasketId $basketId, string $productId)
     {
@@ -32,7 +32,7 @@ class ProductWasRemovedFromBasket extends BasketEvent
     /**
      * {@inheritdoc}
      */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         return new self(
             new BasketId($data['basketId']),

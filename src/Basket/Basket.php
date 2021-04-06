@@ -17,12 +17,9 @@ use Broadway\EventSourcing\EventSourcedAggregateRoot;
 
 class Basket extends EventSourcedAggregateRoot
 {
-    /**
-     * @var BasketId
-     */
-    private $basketId;
-    private $productCountById = [];
-    private $hasBeenCheckedOut = false;
+    private BasketId $basketId;
+    private array $productCountById = [];
+    private bool $hasBeenCheckedOut = false;
 
     /**
      * {@inheritdoc}
@@ -32,7 +29,7 @@ class Basket extends EventSourcedAggregateRoot
         return (string) $this->basketId;
     }
 
-    public static function pickUpBasket(BasketId $basketId)
+    public static function pickUpBasket(BasketId $basketId): Basket
     {
         $basket = new Basket();
         $basket->pickUp($basketId);
@@ -101,7 +98,7 @@ class Basket extends EventSourcedAggregateRoot
         }
     }
 
-    private function productIsInBasket($productId)
+    private function productIsInBasket($productId): bool
     {
         return isset($this->productCountById[$productId]) && $this->productCountById[$productId] > 0;
     }

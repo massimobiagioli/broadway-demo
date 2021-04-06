@@ -15,7 +15,7 @@ namespace BroadwayDemo\Basket;
 
 abstract class BasketCommand
 {
-    private $basketId;
+    private BasketId $basketId;
 
     public function __construct(BasketId $basketId)
     {

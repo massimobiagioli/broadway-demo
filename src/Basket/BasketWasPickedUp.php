@@ -18,7 +18,7 @@ class BasketWasPickedUp extends BasketEvent
     /**
      * {@inheritdoc}
      */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         return new self(new BasketId($data['basketId']));
     }

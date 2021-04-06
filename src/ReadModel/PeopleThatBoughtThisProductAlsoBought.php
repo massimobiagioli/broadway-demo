@@ -17,8 +17,8 @@ use Broadway\ReadModel\SerializableReadModel;
 
 class PeopleThatBoughtThisProductAlsoBought implements SerializableReadModel
 {
-    private $purchasedProductId;
-    private $otherProducts = [];
+    private string $purchasedProductId;
+    private array $otherProducts = [];
 
     public function __construct(string $purchasedProductId)
     {
@@ -56,7 +56,7 @@ class PeopleThatBoughtThisProductAlsoBought implements SerializableReadModel
     /**
      * {@inheritdoc}
      */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         $readModel = new self($data['purchasedProductId']);
 

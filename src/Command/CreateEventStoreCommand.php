@@ -24,15 +24,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateEventStoreCommand extends ContainerAwareCommand
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * @var DBALEventStore
-     */
-    private $eventStore;
+    private DBALEventStore $eventStore;
 
     public function __construct(Connection $connection, DBALEventStore $eventStore)
     {
@@ -63,7 +57,7 @@ EOT
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $schemaManager = $this->connection->getSchemaManager();
 
