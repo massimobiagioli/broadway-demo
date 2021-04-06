@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PeopleThatBoughtThisProductAlsoBoughtController
 {
-    private $repository;
+    private Repository $repository;
 
     public function __construct(Repository $repository)
     {
