@@ -1,32 +1,49 @@
-.DEFAULT_GOAL:=help
+.PHONY: composer-install composer-install-dev composer-require composer-require-dev up start restart halt test cs-fix test-single
 
-.PHONY: dependencies
-dependencies:
-	composer install --no-interaction --no-suggest --no-scripts --ansi
+start: composer-install-dev up
 
-.PHONY: test
+restart: halt up
+
+init: init-event-store init-read-model
+
+up:
+	docker-compose up -d --remove-orphans php web
+
+recreate:
+	docker-compose up -d --force-recreate --build --remove-orphans
+
+logs:
+	docker-compose logs --follow web php
+
+composer-install:
+	docker-compose run --rm --no-deps composer composer install --no-dev --ignore-platform-reqs --optimize-autoloader
+
+composer-install-dev:
+	docker-compose run --rm --no-deps composer composer install --ignore-platform-reqs
+
+halt:
+	docker-compose down -v
+
+composer-require:
+	docker-compose run --rm --no-deps composer composer require $(dependency) --ignore-platform-reqs
+
+composer-require-dev:
+	docker-compose run --rm --no-deps composer composer require --dev $(dependency) --ignore-platform-reqs
+
 test:
-	vendor/bin/phpunit --testdox --exclude-group=none --colors=always
+	docker-compose run --rm --no-deps php ./vendor/bin/phpunit --testdox --exclude-group=none --colors=always
 
-.PHONY: qa
-qa: php-cs-fixer-ci
+test-single:
+	docker-compose run --rm --no-deps php ./vendor/bin/phpunit --testdox --exclude-group=none --colors=always $(test)
 
-.PHONY: php-cs-fixer
-php-cs-fixer:
-	vendor/bin/php-cs-fixer fix --no-interaction --allow-risky=yes --diff --verbose
+cs-fix:
+	docker-compose run --rm --no-deps cs-fixer php-cs-fixer fix
 
-.PHONY: php-cs-fixer-ci
-php-cs-fixer-ci:
-	vendor/bin/php-cs-fixer fix --dry-run --no-interaction --allow-risky=yes --diff --verbose
+cs-check:
+	docker-compose run --rm --no-deps cs-fixer php-cs-fixer fix --dry-run -v
 
-.PHONY: changelog
-changelog:
-	git log $$(git describe --abbrev=0 --tags)...HEAD --no-merges --pretty=format:"* [%h](http://github.com/${TRAVIS_REPO_SLUG}/commit/%H) %s (%cN)"
+init-event-store:
+	docker-compose run --rm --no-deps php ./bin/console broadway:event-store:create
 
-.PHONY: license
-license:
-	vendor/bin/docheader check --no-interaction --ansi -vvv {src,test,public,bin}
-
-# Based on https://suva.sh/posts/well-documented-makefiles/
-help:  ## Display this help
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+init-read-model:
+	docker-compose run --rm --no-deps php ./bin/console broadway:read-model:create
