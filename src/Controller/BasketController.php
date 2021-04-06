@@ -27,8 +27,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BasketController
 {
-    private $commandBus;
-    private $uuidGenerator;
+    private CommandBus $commandBus;
+    private UuidGeneratorInterface $uuidGenerator;
 
     public function __construct(
         CommandBus $commandBus,
